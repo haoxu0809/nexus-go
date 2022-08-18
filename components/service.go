@@ -4,10 +4,10 @@ import (
 	"errors"
 
 	"github.com/haoxu0809/nexus-go/components/apiv1"
-	"github.com/haoxu0809/nexus-go/pkg/log"
-	"github.com/haoxu0809/nexus-go/pkg/rest"
-	"github.com/haoxu0809/nexus-go/pkg/xurl"
 
+	"github.com/haoxu0809/pkg/log"
+	"github.com/haoxu0809/pkg/qencoder"
+	"github.com/haoxu0809/pkg/rest"
 	"go.uber.org/zap"
 )
 
@@ -53,7 +53,7 @@ func (s *Components) DeleteComponent(componentId string) error {
 }
 
 func (s *Components) ListComponents(params *apiv1.ListComponentsParameters) (*apiv1.ComponentList, error) {
-	values, err := xurl.Values(params)
+	values, err := qencoder.Values(params)
 	if err != nil {
 		return nil, err
 	}

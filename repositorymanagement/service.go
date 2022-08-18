@@ -1,7 +1,6 @@
 package repositorymanagement
 
 import (
-	"github.com/haoxu0809/nexus-go/pkg/rest"
 	"github.com/haoxu0809/nexus-go/repositorymanagement/cocoapods"
 	"github.com/haoxu0809/nexus-go/repositorymanagement/docker"
 	"github.com/haoxu0809/nexus-go/repositorymanagement/gitlfs"
@@ -12,6 +11,8 @@ import (
 	"github.com/haoxu0809/nexus-go/repositorymanagement/pypi"
 	"github.com/haoxu0809/nexus-go/repositorymanagement/raw"
 	"github.com/haoxu0809/nexus-go/repositorymanagement/repositories"
+
+	"github.com/haoxu0809/pkg/rest"
 )
 
 type RepositoryManagement struct {

@@ -2,10 +2,10 @@ package assets
 
 import (
 	"github.com/haoxu0809/nexus-go/assets/apiv1"
-	"github.com/haoxu0809/nexus-go/pkg/log"
-	"github.com/haoxu0809/nexus-go/pkg/rest"
-	"github.com/haoxu0809/nexus-go/pkg/xurl"
 
+	"github.com/haoxu0809/pkg/log"
+	"github.com/haoxu0809/pkg/qencoder"
+	"github.com/haoxu0809/pkg/rest"
 	"go.uber.org/zap"
 )
 
@@ -51,7 +51,7 @@ func (s *Assets) DeleteAsset(assetId string) error {
 }
 
 func (s *Assets) ListAssets(params *apiv1.ListAssetsParameters) (*apiv1.AssetList, error) {
-	values, err := xurl.Values(params)
+	values, err := qencoder.Values(params)
 	if err != nil {
 		return nil, err
 	}

@@ -3,10 +3,11 @@ package nexus
 import (
 	"github.com/haoxu0809/nexus-go/assets"
 	"github.com/haoxu0809/nexus-go/components"
-	"github.com/haoxu0809/nexus-go/pkg/log"
-	"github.com/haoxu0809/nexus-go/pkg/rest"
 	"github.com/haoxu0809/nexus-go/repositorymanagement"
 	"github.com/haoxu0809/nexus-go/search"
+
+	"github.com/haoxu0809/pkg/log"
+	"github.com/haoxu0809/pkg/rest"
 )
 
 type Client struct {
@@ -21,7 +22,7 @@ func init() {
 }
 
 func NewClient(cfg *rest.Config) (*Client, error) {
-	c, err := rest.NewRESTClientForConfig(cfg)
+	c, err := rest.NewClientForConfig(cfg)
 	if err != nil {
 		return nil, err
 	}

@@ -1,11 +1,11 @@
 package cocoapodsrepo
 
 import (
-	"github.com/haoxu0809/nexus-go/pkg/log"
-	"github.com/haoxu0809/nexus-go/pkg/rest"
 	"github.com/haoxu0809/nexus-go/repositorymanagement/cocoapods/apiv1"
 	"github.com/haoxu0809/nexus-go/repositorymanagement/common/model"
 
+	"github.com/haoxu0809/pkg/log"
+	"github.com/haoxu0809/pkg/rest"
 	"go.uber.org/zap"
 )
 

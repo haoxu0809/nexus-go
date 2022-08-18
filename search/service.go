@@ -3,11 +3,11 @@ package search
 import (
 	assetsapiv1 "github.com/haoxu0809/nexus-go/assets/apiv1"
 	componentsapiv1 "github.com/haoxu0809/nexus-go/components/apiv1"
-	"github.com/haoxu0809/nexus-go/pkg/log"
-	"github.com/haoxu0809/nexus-go/pkg/rest"
-	"github.com/haoxu0809/nexus-go/pkg/xurl"
 	searchapiv1 "github.com/haoxu0809/nexus-go/search/apiv1"
 
+	"github.com/haoxu0809/pkg/log"
+	"github.com/haoxu0809/pkg/qencoder"
+	"github.com/haoxu0809/pkg/rest"
 	"go.uber.org/zap"
 )
 
@@ -22,7 +22,7 @@ func NewSearchService(client *rest.Client) *Search {
 }
 
 func (s *Search) SearchComponents(params *searchapiv1.SearchComponentsParameters) (*componentsapiv1.ComponentList, error) {
-	values, err := xurl.Values(params)
+	values, err := qencoder.Values(params)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (s *Search) SearchComponents(params *searchapiv1.SearchComponentsParameters
 }
 
 func (s *Search) SearchAssets(params *searchapiv1.SearchAssetsParameters) (*assetsapiv1.AssetList, error) {
-	values, err := xurl.Values(params)
+	values, err := qencoder.Values(params)
 	if err != nil {
 		return nil, err
 	}
@@ -68,7 +68,7 @@ func (s *Search) SearchAssets(params *searchapiv1.SearchAssetsParameters) (*asse
 }
 
 func (s *Search) SearchAndDownloadAsset(params *searchapiv1.SearchAndDownloadAssetParameters) error {
-	values, err := xurl.Values(params)
+	values, err := qencoder.Values(params)
 	if err != nil {
 		return err
 	}
