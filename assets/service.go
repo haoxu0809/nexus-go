@@ -24,9 +24,9 @@ func (s *Assets) GetAsset(assetId string) (*apiv1.Asset, error) {
 		Verb("GET").
 		SetEndpoint("service/rest/v1/assets/" + assetId).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get Asset", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var asset apiv1.Asset
@@ -42,9 +42,9 @@ func (s *Assets) DeleteAsset(assetId string) error {
 		Verb("DELETE").
 		SetEndpoint("service/rest/v1/assets/" + assetId).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to delete Asset", zap.Object("context", log.Context(nil, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return err
 	}
 
 	return nil
@@ -60,9 +60,9 @@ func (s *Assets) ListAssets(params *apiv1.ListAssetsParameters) (*apiv1.AssetLis
 		SetEndpoint("service/rest/v1/assets").
 		Param(values).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to list Asset", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var assets apiv1.AssetList

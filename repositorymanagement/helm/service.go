@@ -24,9 +24,9 @@ func (s *Helm) GetHelmLocalRepository(repositoryName string) (*model.LocalReposi
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/helm/hosted/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get Helm local repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository model.LocalRepository
@@ -43,9 +43,9 @@ func (s *Helm) UpdateHelmLocalRepository(repositoryName string, r *apiv1.HelmLoc
 		SetEndpoint("service/rest/v1/repositories/helm/hosted/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update Helm local repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -57,9 +57,9 @@ func (s *Helm) CreateHelmLocalRepository(r *apiv1.HelmLocalApiRequest) error {
 		SetEndpoint("service/rest/v1/repositories/helm/hosted").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create Helm local repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -70,9 +70,9 @@ func (s *Helm) GetHelmProxyRepository(repositoryName string) (*model.ProxyReposi
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/helm/proxy/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get Helm proxy repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository model.ProxyRepository
@@ -89,9 +89,9 @@ func (s *Helm) UpdateHelmProxyRepository(repositoryName string, r *apiv1.HelmPro
 		SetEndpoint("service/rest/v1/repositories/helm/proxy/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update Helm proxy repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -103,9 +103,9 @@ func (s *Helm) CreateHelmProxyRepository(r *apiv1.HelmProxyApiRequest) error {
 		SetEndpoint("service/rest/v1/repositories/helm/proxy").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create Helm proxy repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil

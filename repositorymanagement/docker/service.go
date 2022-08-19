@@ -23,9 +23,9 @@ func (s *Docker) GetDockerLocalRepository(repositoryName string) (*apiv1.DockerL
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/docker/hosted/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get docker local repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository apiv1.DockerLocalRepository
@@ -42,9 +42,9 @@ func (s *Docker) UpdateDockerLocalRepository(repositoryName string, r *apiv1.Doc
 		SetEndpoint("service/rest/v1/repositories/docker/hosted/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update docker local repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -56,8 +56,8 @@ func (s *Docker) CreateDockerLocalRepository(r *apiv1.DockerLocalApiRequest) err
 		SetEndpoint("service/rest/v1/repositories/docker/hosted").
 		Body(r).
 		Do()
-	if err := result.Error(); err != nil && err.Error() != "" {
-		log.L().Error("failed to create docker local repository", zap.Object("context", log.Context(r, result.Response())))
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
 		return err
 	}
 
@@ -69,9 +69,9 @@ func (s *Docker) GetDockerProxyRepository(repositoryName string) (*apiv1.DockerP
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/docker/proxy/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get docker proxy repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository apiv1.DockerProxyRepository
@@ -88,9 +88,9 @@ func (s *Docker) UpdateDockerProxyRepository(repositoryName string, r *apiv1.Doc
 		SetEndpoint("service/rest/v1/repositories/docker/proxy/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update docker proxy repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -102,9 +102,9 @@ func (s *Docker) CreateDockerProxyRepository(r *apiv1.DockerProxyApiRequest) err
 		SetEndpoint("service/rest/v1/repositories/docker/proxy").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create docker proxy repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil

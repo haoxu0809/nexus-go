@@ -24,9 +24,9 @@ func (s *Raw) GetRawLocalRepository(repositoryName string) (*apiv1.RawLocalRepos
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/raw/hosted/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get raw local repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository apiv1.RawLocalRepository
@@ -43,9 +43,9 @@ func (s *Raw) UpdateRawLocalRepository(repositoryName string, r *apiv1.RawLocalA
 		SetEndpoint("service/rest/v1/repositories/raw/hosted/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update raw local repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -57,9 +57,9 @@ func (s *Raw) CreateRawLocalRepository(r *apiv1.RawLocalApiRequest) error {
 		SetEndpoint("service/rest/v1/repositories/raw/hosted").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create raw local repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -70,9 +70,9 @@ func (s *Raw) GetRawProxyRepository(repositoryName string) (*model.ProxyReposito
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/raw/proxy/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get raw proxy repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository model.ProxyRepository
@@ -89,9 +89,9 @@ func (s *Raw) UpdateRawProxyRepository(repositoryName string, r *apiv1.RawProxyA
 		SetEndpoint("service/rest/v1/repositories/raw/proxy/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update raw proxy repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -103,9 +103,9 @@ func (s *Raw) CreateRawProxyRepository(r *apiv1.RawProxyApiRequest) error {
 		SetEndpoint("service/rest/v1/repositories/raw/proxy").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create raw proxy repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil

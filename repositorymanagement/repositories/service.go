@@ -23,9 +23,9 @@ func (s *Repository) InvalidateCache(repositoryName string) error {
 		Verb("POST").
 		SetEndpoint("service/rest/v1/repositories/" + repositoryName + "/invalidate-cache").
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to invalidate cache", zap.Object("context", log.Context(nil, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return err
 	}
 
 	return nil
@@ -36,9 +36,9 @@ func (s *Repository) RebuildIndex(repositoryName string) error {
 		Verb("POST").
 		SetEndpoint("service/rest/v1/repositories/" + repositoryName + "/rebuild-index").
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to rebuild index", zap.Object("context", log.Context(nil, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return err
 	}
 
 	return nil
@@ -49,9 +49,9 @@ func (s *Repository) GetRepository(repositoryName string) (*apiv1.Repository, er
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository apiv1.Repository
@@ -67,9 +67,9 @@ func (s *Repository) DeleteRepository(repositoryName string) error {
 		Verb("DELETE").
 		SetEndpoint("service/rest/v1/repositories/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to delete repository", zap.Object("context", log.Context(nil, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return err
 	}
 
 	return nil
@@ -80,9 +80,9 @@ func (s *Repository) ListRepository() ([]*apiv1.Repository, error) {
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories").
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to list repositories", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repositories []*apiv1.Repository
@@ -98,9 +98,9 @@ func (s *Repository) ListRepositorySettings() ([]*apiv1.RepositorySettings, erro
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositorySettings").
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to list repository settings", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var settings []*apiv1.RepositorySettings

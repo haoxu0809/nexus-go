@@ -3,12 +3,12 @@ package apiv1
 import "os"
 
 type ListComponentsParameters struct {
-	Repository        string `url:"repository" form:"repository" binding:"required"`
-	ContinuationToken string `url:"continuationToken,omitempty" form:"continuationToken" binding:"omitempty"`
+	Repository        string `url:"repository"`
+	ContinuationToken string `url:"continuationToken,omitempty"`
 }
 
 type UploadComponentApiRequest struct {
-	Repository             string  `form:"repository" binding:"required"`
+	Repository             string  `form:"repository"`
 	RAsset                 os.File `form:"r.asset"`
 	RAssetPathId           string  `form:"r.asset.pathId"`
 	PypiAsset              os.File `form:"pypi.asset"`

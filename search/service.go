@@ -31,9 +31,9 @@ func (s *Search) SearchComponents(params *searchapiv1.SearchComponentsParameters
 		SetEndpoint("service/rest/v1/search").
 		Param(values).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to search", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var components componentsapiv1.ComponentList
@@ -54,9 +54,9 @@ func (s *Search) SearchAssets(params *searchapiv1.SearchAssetsParameters) (*asse
 		SetEndpoint("service/rest/v1/search/assets").
 		Param(values).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to search", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var assets assetsapiv1.AssetList
@@ -77,9 +77,9 @@ func (s *Search) SearchAndDownloadAsset(params *searchapiv1.SearchAndDownloadAss
 		SetEndpoint("service/rest/v1/search/assets/download").
 		Param(values).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to search", zap.Object("context", log.Context(nil, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return err
 	}
 
 	return nil

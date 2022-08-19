@@ -24,9 +24,9 @@ func (s *Pypi) GetPypiLocalRepository(repositoryName string) (*model.LocalReposi
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/pypi/hosted/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get Pypi repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository model.LocalRepository
@@ -43,9 +43,9 @@ func (s *Pypi) UpdatePypiLocalRepository(repositoryName string, r *apiv1.PypiLoc
 		SetEndpoint("service/rest/v1/repositories/pypi/hosted/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update Pypi repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -57,9 +57,9 @@ func (s *Pypi) CreatePypiLocalRepository(r *apiv1.PypiLocalApiRequest) error {
 		SetEndpoint("service/rest/v1/repositories/pypi/hosted").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create Pypi repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -70,9 +70,9 @@ func (s *Pypi) GetPypiProxyRepository(repositoryName string) (*model.ProxyReposi
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/pypi/proxy/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get Pypi repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository model.ProxyRepository
@@ -89,9 +89,9 @@ func (s *Pypi) UpdatePypiProxyRepository(repositoryName string, r *apiv1.PypiPro
 		SetEndpoint("service/rest/v1/repositories/pypi/proxy/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update Pypi repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -103,9 +103,9 @@ func (s *Pypi) CreatePypiProxyRepository(r *apiv1.PypiProxyApiRequest) error {
 		SetEndpoint("service/rest/v1/repositories/pypi/proxy").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create Pypi repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil

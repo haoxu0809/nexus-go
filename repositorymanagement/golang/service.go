@@ -24,9 +24,9 @@ func (s *Golang) GetGolangProxyRepository(repositoryName string) (*model.ProxyRe
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/golang/proxy/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get Golang proxy repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository model.ProxyRepository
@@ -42,9 +42,9 @@ func (s *Golang) UpdateGolangProxyRepository(repositoryName string, r *apiv1.Gol
 		Verb("PUT").SetEndpoint("service/rest/v1/repositories/golang/proxy/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update Golang proxy repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -56,9 +56,9 @@ func (s *Golang) CreateGolangProxyRepository(r *apiv1.GolangProxyApiRequest) err
 		SetEndpoint("service/rest/v1/repositories/golang/proxy").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create Golang proxy repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil

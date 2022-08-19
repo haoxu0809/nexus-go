@@ -24,9 +24,9 @@ func (s *CocoaPods) GetCocoaPodsProxyRepository(repositoryName string) (*model.P
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/cocoapods/proxy/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get CocoaPods proxy repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository model.ProxyRepository
@@ -43,9 +43,9 @@ func (s *CocoaPods) UpdateCocoaPodsProxyRepository(repositoryName string, r *api
 		SetEndpoint("service/rest/v1/repositories/cocoapods/proxy/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update CocoaPods proxy repository", zap.Object("context", log.Context(nil, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -57,9 +57,9 @@ func (s *CocoaPods) CreateCocoaPodsProxyRepository(r *apiv1.CocoapodsProxyApiReq
 		SetEndpoint("service/rest/v1/repositories/cocoapods/proxy/").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create CocoaPods proxy repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil

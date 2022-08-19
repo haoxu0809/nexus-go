@@ -23,9 +23,9 @@ func (s *Maven) GetMavenLocalRepository(repositoryName string) (*apiv1.MavenLoca
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/maven/hosted/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get maven local repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository apiv1.MavenLocalRepository
@@ -42,9 +42,9 @@ func (s *Maven) UpdateMavenLocalRepository(repositoryName string, r *apiv1.Maven
 		SetEndpoint("service/rest/v1/repositories/maven/hosted/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update maven local repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -56,9 +56,9 @@ func (s *Maven) CreateMavenLocalRepository(r *apiv1.MavenLocalApiRequest) error 
 		SetEndpoint("service/rest/v1/repositories/maven/hosted").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create maven local repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -69,9 +69,9 @@ func (s *Maven) GetMavenProxyRepository(repositoryName string) (*apiv1.MavenProx
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/maven/proxy/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get maven proxy repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository apiv1.MavenProxyRepository
@@ -88,9 +88,9 @@ func (s *Maven) UpdateMavenProxyRepository(repositoryName string, r *apiv1.Maven
 		SetEndpoint("service/rest/v1/repositories/maven/proxy/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update maven proxy repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -102,9 +102,9 @@ func (s *Maven) CreateMavenProxyRepository(r *apiv1.MavenProxyApiRequest) error 
 		SetEndpoint("service/rest/v1/repositories/maven/proxy").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create maven proxy repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil

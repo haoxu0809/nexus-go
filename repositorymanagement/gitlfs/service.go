@@ -24,9 +24,9 @@ func (s *GitLfs) GetGitLfsLocalRepository(repositoryName string) (*model.LocalRe
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/gitlfs/hosted/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get Git LFS local repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository model.LocalRepository
@@ -43,9 +43,9 @@ func (s *GitLfs) UpdateGitLfsLocalRepository(repositoryName string, r *apiv1.Git
 		SetEndpoint("service/rest/v1/repositories/gitlfs/hosted/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update Git LFS local repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -57,9 +57,9 @@ func (s *GitLfs) CreateGitLfsLocalRepository(r *apiv1.GitLfsLocalApiRequest) err
 		SetEndpoint("service/rest/v1/repositories/gitlfs/hosted").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create Git LFS local repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil

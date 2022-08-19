@@ -24,9 +24,9 @@ func (s *Npm) GetNpmLocalRepository(repositoryName string) (*model.LocalReposito
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/npm/hosted/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get Npm local repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository model.LocalRepository
@@ -43,9 +43,9 @@ func (s *Npm) UpdateNpmLocalRepository(repositoryName string, r *apiv1.NpmLocalA
 		SetEndpoint("service/rest/v1/repositories/npm/hosted/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update Npm local repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -57,9 +57,9 @@ func (s *Npm) CreateNpmLocalRepository(r *apiv1.NpmLocalApiRequest) error {
 		SetEndpoint("service/rest/v1/repositories/npm/hosted").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create Npm local repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -70,9 +70,9 @@ func (s *Npm) GetNpmProxyRepository(repositoryName string) (*apiv1.NpmProxyRepos
 		Verb("GET").
 		SetEndpoint("service/rest/v1/repositories/npm/proxy/" + repositoryName).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to get Npm proxy repository", zap.Object("context", log.Context(nil, result.Response())))
-		return nil, result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
+		return nil, err
 	}
 
 	var repository apiv1.NpmProxyRepository
@@ -89,9 +89,9 @@ func (s *Npm) CreateNpmProxyRepository(repositoryName string, r *apiv1.NpmProxyR
 		SetEndpoint("service/rest/v1/repositories/npm/proxy/" + repositoryName).
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to create Npm proxy repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
@@ -103,9 +103,9 @@ func (s *Npm) UpdateNpmProxyRepository(r *apiv1.NpmProxyRepository) error {
 		SetEndpoint("service/rest/v1/repositories/npm/proxy").
 		Body(r).
 		Do()
-	if result.Error() != nil {
-		log.L().Error("failed to update Npm proxy repository", zap.Object("context", log.Context(r, result.Response())))
-		return result.Error()
+	if err := result.Error(); err != nil {
+		log.L().Error(err.Error(), zap.Object("context", result.Dump(r)))
+		return err
 	}
 
 	return nil
