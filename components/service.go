@@ -26,6 +26,9 @@ func (s *Components) DeleteComponent(componentId string) error {
 		Verb("DELETE").
 		SetEndpoint("service/rest/v1/components/" + componentId).
 		Do()
+	if result.StatusCode() == 404 {
+		return nil
+	}
 	if err := result.Error(); err != nil {
 		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
 		return err
@@ -79,6 +82,6 @@ func (s *Components) ListComponents(params *apiv1.ListComponentsParameters) (*ap
 }
 
 func (s *Components) UploadComponent(r *apiv1.UploadComponentApiRequest) error {
-	
+
 	return nil
 }

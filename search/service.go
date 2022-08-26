@@ -21,7 +21,7 @@ func NewSearchService(client *rest.Client) *Search {
 	}
 }
 
-func (s *Search) SearchComponents(params *searchapiv1.SearchComponentsParameters) (*componentsapiv1.ComponentList, error) {
+func (s *Search) SearchComponents(params *searchapiv1.Components) (*componentsapiv1.ComponentList, error) {
 	values, err := qencoder.Values(params)
 	if err != nil {
 		return nil, err
@@ -44,7 +44,7 @@ func (s *Search) SearchComponents(params *searchapiv1.SearchComponentsParameters
 	return &components, nil
 }
 
-func (s *Search) SearchAssets(params *searchapiv1.SearchAssetsParameters) (*assetsapiv1.AssetList, error) {
+func (s *Search) SearchAssets(params *searchapiv1.Assets) (*assetsapiv1.AssetList, error) {
 	values, err := qencoder.Values(params)
 	if err != nil {
 		return nil, err
@@ -67,7 +67,7 @@ func (s *Search) SearchAssets(params *searchapiv1.SearchAssetsParameters) (*asse
 	return &assets, nil
 }
 
-func (s *Search) SearchAndDownloadAsset(params *searchapiv1.SearchAndDownloadAssetParameters) error {
+func (s *Search) SearchAndDownloadAsset(params *searchapiv1.DownloadAsset) error {
 	values, err := qencoder.Values(params)
 	if err != nil {
 		return err

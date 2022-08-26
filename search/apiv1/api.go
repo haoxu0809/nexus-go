@@ -1,6 +1,6 @@
 package apiv1
 
-type Parameters struct {
+type Query struct {
 	Repository string `url:"repository,omitempty"`
 	Name       string `url:"name,omitempty"`
 	Version    string `url:"version,omitempty"`
@@ -8,16 +8,16 @@ type Parameters struct {
 	Direction  string `url:"direction,omitempty"`
 }
 
-type SearchAssetsParameters struct {
-	ContinuationToken string `url:"continuationToken,omitempty"`
-	*Parameters
+type Assets struct {
+	Next string `url:"continuationToken,omitempty"`
+	Query
 }
 
-type SearchAndDownloadAssetParameters struct {
-	*Parameters
+type DownloadAsset struct {
+	Query
 }
 
-type SearchComponentsParameters struct {
+type Components struct {
 	ContinuationToken string `url:"continuationToken,omitempty"`
-	*Parameters
+	Query
 }

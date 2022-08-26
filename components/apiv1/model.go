@@ -7,22 +7,22 @@ import (
 // Attributes struct for Attributes
 type Attributes struct {
 	// Components in this repository count as proprietary for namespace conflict attacks (requires Sonatype Nexus Firewall)
-	ProprietaryComponents bool `json:"proprietaryComponents,omitempty"`
+	ProprietaryComponents bool `json:"proprietaryComponents"`
 }
 
 // Component struct for Component
 type Component struct {
-	Id         string        `json:"id,omitempty"`
-	Repository string        `json:"repository,omitempty"`
-	Format     string        `json:"format,omitempty"`
-	Group      string        `json:"group,omitempty"`
-	Name       string        `json:"name,omitempty"`
-	Version    string        `json:"version,omitempty"`
-	Assets     []apiv1.Asset `json:"assets,omitempty"`
+	Id         string        `json:"id"`
+	Repository string        `json:"repository"`
+	Format     string        `json:"format"`
+	Group      string        `json:"group"`
+	Name       string        `json:"name"`
+	Version    string        `json:"version"`
+	Assets     []apiv1.Asset `json:"assets"`
 }
 
 // ComponentList struct for ComponentList
 type ComponentList struct {
-	Items             []Component `json:"items,omitempty"`
-	ContinuationToken string      `json:"continuationToken,omitempty"`
+	Items             []Component `json:"items"`
+	ContinuationToken string      `json:"continuationToken"`
 }

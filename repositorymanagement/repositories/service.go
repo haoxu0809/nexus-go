@@ -44,10 +44,10 @@ func (s *Repository) RebuildIndex(repositoryName string) error {
 	return nil
 }
 
-func (s *Repository) GetRepository(repositoryName string) (*apiv1.Repository, error) {
+func (s *Repository) GetRepository(format, rtype, repositoryName string) (*apiv1.Repository, error) {
 	result := s.client.
 		Verb("GET").
-		SetEndpoint("service/rest/v1/repositories/" + repositoryName).
+		SetEndpoint("service/rest/v1/repositories/" + format + "/" + rtype + "/" + repositoryName).
 		Do()
 	if err := result.Error(); err != nil {
 		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
@@ -67,6 +67,9 @@ func (s *Repository) DeleteRepository(repositoryName string) error {
 		Verb("DELETE").
 		SetEndpoint("service/rest/v1/repositories/" + repositoryName).
 		Do()
+	if result.StatusCode() == 404 {
+		return nil
+	}
 	if err := result.Error(); err != nil {
 		log.L().Error(err.Error(), zap.Object("context", result.Dump()))
 		return err
