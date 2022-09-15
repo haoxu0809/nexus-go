@@ -18,7 +18,7 @@ type Client struct {
 }
 
 func init() {
-	log.New("debug")
+	log.NewLogger("info", "json")
 }
 
 func NewClient(cfg *rest.Config) (*Client, error) {
